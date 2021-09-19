@@ -27,17 +27,10 @@ function displayWinner(myAnswer, computerAnswer) {
       (VALID_INPUTS[myAnswer] === 'Spock' &&
       (VALID_INPUTS[computerAnswer] === 'Rock' || VALID_INPUTS[computerAnswer] === 'Scizzors'))) {
     return true;
-  } else if ((VALID_INPUTS[myAnswer] === 'Rock' &&
-      (VALID_INPUTS[computerAnswer] === 'Spock' || VALID_INPUTS[computerAnswer] === 'Paper')) ||
-      (VALID_INPUTS[myAnswer] === 'Paper' &&
-      (VALID_INPUTS[computerAnswer] === 'Scizzors' || VALID_INPUTS[computerAnswer] === 'Lizard')) ||
-      (VALID_INPUTS[myAnswer] === 'Scizzors' &&
-      (VALID_INPUTS[computerAnswer] === 'Spock' || VALID_INPUTS[computerAnswer] === 'Rock')) ||
-      (VALID_INPUTS[myAnswer] === 'Lizard' &&
-      (VALID_INPUTS[computerAnswer] === 'Rock' || VALID_INPUTS[computerAnswer] === 'Scizzors')) ||
-      (VALID_INPUTS[myAnswer] === 'Spock' &&
-      (VALID_INPUTS[computerAnswer] === 'Lizard' || VALID_INPUTS[computerAnswer] === 'Paper'))) {
+  } else if (VALID_INPUTS[myAnswer] === VALID_INPUTS[computerAnswer]) {
     return false;
+  } else {
+    return "Round loss";
   }
 }
 
@@ -62,11 +55,13 @@ while (myPoints < 3 || computerPoints < 3) {
   prompt(`Opponent choice: ${VALID_INPUTS[opAnswer]}`);
 
   if (displayWinner(userAnswer, opAnswer) === true) {
+    prompt('Round won');
     myPoints += 1;
   } else if (displayWinner(userAnswer, opAnswer) === false) {
-    computerPoints += 1;
+    prompt("It's a TIE!");
   } else {
-    prompt('Its a  TIE');
+    prompt(displayWinner(userAnswer, opAnswer));
+    computerPoints += 1;
   }
 
   prompt(`You: ${myPoints} | Opponent: ${computerPoints}`);
