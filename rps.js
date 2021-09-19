@@ -1,5 +1,5 @@
 const readline = require('readline-sync');
-const VALID_INPUTS = ['Rock', 'Paper', 'Scizzors', 'Lizard', 'Spock'];
+const VALID_INPUTS = ['Rock', 'Paper', 'Scissors', 'Lizard', 'Spock'];
 let myPoints = 0;
 let computerPoints = 0;
 
@@ -17,15 +17,15 @@ function invalidNumber(number) {
 
 function displayWinner(myAnswer, computerAnswer) {
   if ((VALID_INPUTS[myAnswer] === 'Rock' &&
-      (VALID_INPUTS[computerAnswer] === 'Scizzors' || VALID_INPUTS[computerAnswer] === 'Lizard')) ||
+      (VALID_INPUTS[computerAnswer] === 'Scissors' || VALID_INPUTS[computerAnswer] === 'Lizard')) ||
       (VALID_INPUTS[myAnswer] === 'Paper' &&
       (VALID_INPUTS[computerAnswer] === 'Rock' || VALID_INPUTS[computerAnswer] === 'Spock')) ||
-      (VALID_INPUTS[myAnswer] === 'Scizzors' &&
+      (VALID_INPUTS[myAnswer] === 'Scissors' &&
       (VALID_INPUTS[computerAnswer] === 'Paper' || VALID_INPUTS[computerAnswer] === 'Lizard')) ||
       (VALID_INPUTS[myAnswer] === 'Lizard' &&
       (VALID_INPUTS[computerAnswer] === 'Spock' || VALID_INPUTS[computerAnswer] === 'Paper')) ||
       (VALID_INPUTS[myAnswer] === 'Spock' &&
-      (VALID_INPUTS[computerAnswer] === 'Rock' || VALID_INPUTS[computerAnswer] === 'Scizzors'))) {
+      (VALID_INPUTS[computerAnswer] === 'Rock' || VALID_INPUTS[computerAnswer] === 'Scissors'))) {
     return true;
   } else if (VALID_INPUTS[myAnswer] === VALID_INPUTS[computerAnswer]) {
     return false;
@@ -41,7 +41,7 @@ while (myPoints < 3 || computerPoints < 3) {
   let opAnswer = Math.floor(Math.random() * 3);
 
   prompt('Please select from the following:');
-  console.log('1.) Rock\n2.) Paper\n3.) Scizzors\n4.) Lizard\n5.) Spock\n');
+  console.log('1.) Rock\n2.) Paper\n3.) Scissors\n4.) Lizard\n5.) Spock\n');
   let userAnswer = readline.question();
 
   while (invalidNumber(userAnswer) || !['1', '2', '3', '4', '5'].includes(userAnswer)) {
