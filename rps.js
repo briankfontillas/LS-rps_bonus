@@ -28,39 +28,26 @@ while (true) {
   prompt(`Your choice: ${VALID_INPUTS[myAnswer]}`);
   prompt(`Opponent choice: ${VALID_INPUTS[computerAnswer]}`);
 
-  if (myAnswer === computerAnswer) {
-    prompt("It's a TIE!");
+  if ((VALID_INPUTS[myAnswer] === 'Rock' && VALID_INPUTS[computerAnswer] === 'Scizzors') ||
+      (VALID_INPUTS[myAnswer] === 'Paper' && VALID_INPUTS[computerAnswer] === 'Rock') ||
+      (VALID_INPUTS[myAnswer] === 'Scizzors' && VALID_INPUTS[computerAnswer] === 'Paper')) {
+    prompt('You are the WINNER!');
+  } else if ((VALID_INPUTS[myAnswer] === 'Rock' && VALID_INPUTS[computerAnswer] === 'Paper') ||
+            (VALID_INPUTS[myAnswer] === 'Paper' && VALID_INPUTS[computerAnswer] === 'Scizzors') ||
+            (VALID_INPUTS[myAnswer] === 'Scizzors' && VALID_INPUTS[computerAnswer] === 'Rock')) {
+    prompt('You Lose!');
+  } else {
+    prompt('It is a Tie!');
   }
 
-  if (VALID_INPUTS[myAnswer] === 'Rock') {
-    if (VALID_INPUTS[computerAnswer] === 'Paper') {
-      prompt('YOU LOSE');
-    }
-    else if (VALID_INPUTS[computerAnswer] === 'Scizzors') {
-      prompt('YOU WIN');
-    }
-  }
-
-  if (VALID_INPUTS[myAnswer] === 'Paper') {
-    if (VALID_INPUTS[computerAnswer] === 'Scizzors') {
-      prompt('YOU LOSE');
-    }
-    else if (VALID_INPUTS[computerAnswer] === 'Rock') {
-      prompt('YOU WIN');
-    }
-  }
-
-  if (VALID_INPUTS[myAnswer] === 'Scizzors') {
-    if (VALID_INPUTS[computerAnswer] === 'Rock') {
-      prompt('YOU LOSE');
-    }
-    else if (VALID_INPUTS[computerAnswer] === 'Paper') {
-      prompt('YOU WIN');
-    }
-  }
 
   prompt('Would you like to play again? (Y/N)');
-  let playAgain = readline.question();
+  let playAgain = readline.question().toUpperCase();
+
+  while (playAgain[0] !== 'Y' && playAgain[0] !== 'N') {
+    prompt('Choice invalid. Please input either Y or N:');
+    playAgain = readline.question().toUpperCase();
+  }
 
   if (playAgain[0].toUpperCase() === 'N') {
     break;

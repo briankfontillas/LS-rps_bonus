@@ -5,6 +5,9 @@ SET rock, paper, scizzors array
 WHILE true
   SET computerAnswer = 0-2
   GET myAnswer = 0-2
+  WHILE myAnswer not in range of 3
+    not valid
+    GET myAnswer
   IF computerAnswer === myAnswer
     console.log tie
   IF myAnswer === rock
