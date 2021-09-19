@@ -1,0 +1,33 @@
+START
+
+SET readline
+SET rock, paper, scizzors array
+WHILE true
+  SET computerAnswer = 0-2
+  GET myAnswer = 0-2
+  IF computerAnswer === myAnswer
+    console.log tie
+  IF myAnswer === rock
+    IF computerAnswer === paper
+      console.log lose
+    ELSE IF computerAnswer === scizzors
+      console.log win
+  IF myAnswer === paper
+    IF computerAnswer === rock
+      console.log win
+    ELSE IF computerAnswer === scizzors
+      console.log lose
+  IF myAnswer === scizzors
+    IF computerAnswer === rock
+      console.log lose
+    ELSE IF computerAnswer === paper
+      console.log win
+  GET playAgain
+    IF playAgain === 'y'
+      continue
+    ELSE
+      break
+
+console.log GAMEOVER
+
+END
