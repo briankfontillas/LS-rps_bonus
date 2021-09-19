@@ -1,5 +1,11 @@
 const readline = require('readline-sync');
 const VALID_INPUTS = ['Rock', 'Paper', 'Scizzors'];
+let myPoints = 0;
+let computerPoints = 0;
+
+function matchWinner(myScore, opScore) {
+  return myScore > opScore ? 'You win the match!' : 'You lost the match.';
+}
 
 function prompt(msg) {
   console.log(`=> ${msg}`);
@@ -32,10 +38,12 @@ while (true) {
       (VALID_INPUTS[myAnswer] === 'Paper' && VALID_INPUTS[computerAnswer] === 'Rock') ||
       (VALID_INPUTS[myAnswer] === 'Scizzors' && VALID_INPUTS[computerAnswer] === 'Paper')) {
     prompt('You are the WINNER!');
+    myPoints += 1;
   } else if ((VALID_INPUTS[myAnswer] === 'Rock' && VALID_INPUTS[computerAnswer] === 'Paper') ||
             (VALID_INPUTS[myAnswer] === 'Paper' && VALID_INPUTS[computerAnswer] === 'Scizzors') ||
             (VALID_INPUTS[myAnswer] === 'Scizzors' && VALID_INPUTS[computerAnswer] === 'Rock')) {
     prompt('You Lose!');
+    computerPoints += 1;
   } else {
     prompt('It is a Tie!');
   }
@@ -54,5 +62,8 @@ while (true) {
   }
 }
 
-
+console.log('_______________________________________');
+prompt(`Your score: ${myPoints}`);
+prompt(`Computer score ${computerPoints}`);
+prompt(matchWinner(myPoints, computerPoints));
 prompt('Thank you for playing!');
