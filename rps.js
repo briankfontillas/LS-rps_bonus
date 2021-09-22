@@ -1,5 +1,6 @@
 const readline = require('readline-sync');
 const VALID_INPUTS = ['Rock', 'Paper', 'Scissors', 'Lizard', 'Spock'];
+const WINNING_SCORE = 3;
 let myPoints = 0;
 let computerPoints = 0;
 
@@ -11,8 +12,21 @@ function prompt(msg) {
   console.log(`=> ${msg}`);
 }
 
-function invalidNumber(number) {
-  return number.trimStart() === '' || Number.isNaN(number);
+function answerChecker(userInput) {
+  switch (userInput) {
+    case userInput === 'r': return VALID_INPUTS[0];
+      break;
+    case userInput === 'p': return VALID_INPUTS[1];
+      break;
+    case userInput === 's': return VALID_INPUTS[2];
+      break;
+    case userInput === 'l': return VALID_INPUTS[3];
+      break;
+    case userInput === 'sp': return VALID_INPUTS[4];
+      break;
+    default: return null;
+
+  }
 }
 
 function displayWinner(myAnswer, computerAnswer) {
@@ -34,25 +48,36 @@ function displayWinner(myAnswer, computerAnswer) {
   }
 }
 
+function askToPlayAgain() {
+  let replay = readline.question(); //ask to play again
+
+  while(replay[0].toUpperCase() !== 'Y' || replay[0].toUpperCase() !== 'N') {
+    prompt(`${replay} is not a valid answer. Please say Yes or No.`);
+    replay = readline.question();
+  }
+
+  return replay;
+}
+
 prompt('Welcome to Rock, Paper, Scizzors, Lizard, Spock (Best outta 5)!');
 
-while (myPoints < 3 || computerPoints < 3) {
+while (myPoints < WINNING_SCORE || computerPoints < WINNING_SCORE) {
   console.log('_______________________________________');
-  let opAnswer = Math.floor(Math.random() * 3);
+  let opAnswer = VALID_INPUTS[Math.floor(Math.random() * VALID_INPUTS.length) - 1];
 
   prompt('Please select from the following:');
-  console.log('1.) Rock\n2.) Paper\n3.) Scissors\n4.) Lizard\n5.) Spock\n');
-  let userAnswer = readline.question();
+  console.log('-Rock(r)\n-Paper(p)\n-Scissors(s)\n-Lizard(l)\n-Spock(sp)\n');
+  let userAnswer = readline.question().toLowerCase();
 
-  while (invalidNumber(userAnswer) || !['1', '2', '3', '4', '5'].includes(userAnswer)) {
+  while (!['r', 'p', 's', 'l', 'sp'].includes(userAnswer)) {
     prompt(`${userAnswer} is invalid. Please try again`);
     userAnswer = readline.question();
   }
 
-  userAnswer = Number(userAnswer) - 1;
+  userAnswer = answerChecker(userAnswer);
 
-  prompt(`Your choice: ${VALID_INPUTS[userAnswer]}`);
-  prompt(`Opponent choice: ${VALID_INPUTS[opAnswer]}`);
+  prompt(`Your choice: ${userAnswer}`);
+  prompt(`Opponent choice: ${opAnswer}`);
 
   if (displayWinner(userAnswer, opAnswer) === true) {
     prompt('Round won');
@@ -66,15 +91,10 @@ while (myPoints < 3 || computerPoints < 3) {
 
   prompt(`You: ${myPoints} | Opponent: ${computerPoints}`);
 
-  if (myPoints === 3  || computerPoints === 3) {
+  if (myPoints === WINNING_SCORE  || computerPoints === WINNING_SCORE) {
     prompt(matchWinner(myPoints, computerPoints));
     prompt('Would you like to play again? (Y/N)');
-    let again = readline.question().toUpperCase();
-    while (again[0].toUpperCase() !== 'Y' && again[0].toUpperCase() !== 'N') {
-      console.log(again[0].toUpperCase());
-      prompt(`${again} is an invalid input. Please input Y or N`);
-      again = readline.question().toUpperCase();
-    }
+    let again = askToPlayAgain();
 
     if (again[0].toUpperCase() === 'Y') {
       myPoints = 0;
